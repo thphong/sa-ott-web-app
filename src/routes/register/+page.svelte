@@ -52,7 +52,6 @@
 
 <style>
     :global(body){
-        margin-top:20px !important;
         background-color: #f2f3f8 !important;
     }
     

@@ -557,11 +557,7 @@
   </div>
 </section>
 
-<style>
-  :global(body) {
-    margin-top: 20px;
-  }
-
+<style>  
   .groups__item,
   :global(.messages) {
     background-color: rgba(0, 0, 0, 0.2);

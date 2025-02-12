@@ -420,7 +420,6 @@
 <style>
   :global(body) {
     background-color: #f3f6f8 !important;
-    margin-top: 20px !important;
   }
   .thumb-lg {
     height: 88px;

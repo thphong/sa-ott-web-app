@@ -70,7 +70,6 @@
 
 <style>
   :global(body) {
-    margin-top: 20px;
     background: #eee !important;
   }
 

@@ -433,7 +433,6 @@
 
 <style>
   :global(body) {
-    padding-top: 20px;
     background-color: rgba(235, 238, 255, 1) !important;
     color: #888ea8 !important;
   }
