@@ -19,29 +19,29 @@
             </a>
           </li>
           <li class="list">
-            <a href="#" class="nav-link">
+            <a href="/group" class="nav-link">
+              <i class="bx bx-group icon"></i>
+              <span class="link">Groups</span>
+            </a>
+          </li>
+          <li class="list">
+            <a href="/files" class="nav-link">
               <i class="bx bx-folder-open icon"></i>
               <span class="link">Files</span>
             </a>
           </li>
           <li class="list">
-            <a href="/profile-dashboard" class="nav-link">
+            <a href="/profile" class="nav-link">
               <i class="bx bx-pie-chart-alt-2 icon"></i>
-              <span class="link">Analytics</span>
+              <span class="link">Profile</span>
             </a>
           </li>
           <li class="list">
-            <a href="#" class="nav-link">
+            <a href="/notification" class="nav-link">
               <i class="bx bx-bell icon"></i>
               <span class="link">Notifications</span>
             </a>
           </li>
-        <li class="list">
-          <a href="/profile-card" class="nav-link">
-            <i class="bx bx-user-circle icon"></i>
-            <span class="link">Profile</span>
-          </a>
-        </li>
       </ul>
 
       <div class="bottom-cotent">

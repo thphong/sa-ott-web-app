@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="content">
-  <div class="container">
+  <div class="main-container">
     <div class="row">
       <div class="col-sm-12">
         <!-- meta -->
@@ -421,6 +421,11 @@
   :global(body) {
     background-color: #f3f6f8 !important;
   }
+
+  .main-container {
+    margin-left: 25px;
+  }
+
   .thumb-lg {
     height: 88px;
     width: 88px;

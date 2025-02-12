@@ -85,7 +85,7 @@ nav .sidebar {
 }
 
 .main-content {
-  position: fixed;
+  position: relative;
   left: 246px;
   height: 500px;
   width: 1300px;

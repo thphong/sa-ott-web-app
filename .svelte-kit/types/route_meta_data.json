@@ -6,16 +6,19 @@
 	"/chat": [
 		"src/routes/+layout.ts"
 	],
+	"/files": [
+		"src/routes/+layout.ts"
+	],
 	"/group": [
 		"src/routes/+layout.ts"
 	],
 	"/login": [
 		"src/routes/+layout.ts"
 	],
-	"/profile-card": [
+	"/notification": [
 		"src/routes/+layout.ts"
 	],
-	"/profile-dashboard": [
+	"/profile": [
 		"src/routes/+layout.ts"
 	],
 	"/register": [
