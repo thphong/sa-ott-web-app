@@ -1,3 +1,18 @@
+<script lang="ts">
+  import { logInUserSession } from '$lib/service/login'
+  import { isUserLoggedIn } from '$lib/service/login'
+  import { goto } from '$app/navigation'
+
+  if (isUserLoggedIn()) {
+    goto('/chat')
+  }
+
+  const login = () => {
+    logInUserSession()
+    goto('/chat')
+  }
+</script>
+
 <svelte:head>
   <title>Login</title>
   <link
@@ -12,6 +27,7 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"
   ></script>
 </svelte:head>
+<div class="back-ground"></div>
 
 <div class="container">
   <div class="row justify-content-center">
@@ -19,7 +35,7 @@
       <div class="card-group mb-0">
         <div class="card p-4">
           <div class="card-body">
-            <h1>Login</h1>
+            <h1>VChat Login</h1>
             <p class="text-muted">Sign In to your account</p>
             <div class="input-group mb-3">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -35,7 +51,10 @@
             </div>
             <div class="row">
               <div class="col-6">
-                <button type="button" class="btn btn-primary px-4">Login</button
+                <button
+                  type="button"
+                  class="btn btn-primary px-4"
+                  on:click={login}>Login</button
                 >
               </div>
               <div class="col-6 text-right">
@@ -54,12 +73,11 @@
             <div>
               <h2>Sign up</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Sign up for the VChat application to connect instantly, chat
+                securely, and enjoy seamless communication with friends and
+                colleagues!
               </p>
-              <button type="button" class="btn btn-primary active mt-3"
-                >Register Now!</button
-              >
+              <a href="/register" class="btn btn-primary mt-3">Register Now!</a>
             </div>
           </div>
         </div>
@@ -69,11 +87,17 @@
 </div>
 
 <style>
-  :global(body) {
+  .back-ground {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
     background: #eee !important;
   }
 
   .container {
+    position: fixed;
     margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
@@ -119,6 +143,11 @@
       display: inline-block;
       width: 100%;
     }
+  }
+
+  button,
+  a {
+    cursor: pointer;
   }
   .text-muted {
     color: #9faecb !important;

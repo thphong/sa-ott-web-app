@@ -423,7 +423,7 @@
   }
 
   .main-container {
-    margin-left: 25px;
+    margin-left: 15px;
   }
 
   .thumb-lg {
