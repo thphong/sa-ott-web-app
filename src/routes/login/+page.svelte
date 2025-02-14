@@ -2,6 +2,7 @@
   import { logInUserSession } from '$lib/service/login'
   import { isUserLoggedIn } from '$lib/service/login'
   import { goto } from '$app/navigation'
+  import Particles from "$lib/components/Particles.svelte"
 
   if (isUserLoggedIn()) {
     goto('/chat')
@@ -11,6 +12,8 @@
     logInUserSession()
     goto('/chat')
   }
+
+
 </script>
 
 <svelte:head>
@@ -27,7 +30,10 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"
   ></script>
 </svelte:head>
-<div class="back-ground"></div>
+
+<div class="back-ground">
+  <Particles></Particles>
+</div>
 
 <div class="container">
   <div class="row justify-content-center">
@@ -66,7 +72,7 @@
           </div>
         </div>
         <div
-          class="card text-white bg-primary py-5 d-md-down-none"
+          class="box-card text-white bg-primary py-5 d-md-down-none"
           style="width:44%"
         >
           <div class="card-body text-center">
@@ -93,7 +99,7 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    background: #eee !important;
+    background: #007bff !important;
   }
 
   .container {
@@ -166,4 +172,11 @@
     display: flex;
     width: 100%;
   }
+
+  .box-card {
+    border: 1px solid white;
+    border-left: none;
+    background-color: transparent;
+  }
+
 </style>

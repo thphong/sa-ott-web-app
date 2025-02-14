@@ -27,7 +27,6 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@zerodevx/svelte-toast": "^0.9.6",
-		"svelte-chartjs": "^3.1.5"
+		"@zerodevx/svelte-toast": "^0.9.6"
 	}
 }
