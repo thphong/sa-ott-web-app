@@ -288,11 +288,7 @@
 </div>
 
 <style>
-  .main-container {
-    background-color: #fff;
-    margin-left: 15px;
-    padding-right: 20px;
-  }
+  
   .card-box {
     padding: 20px;
     border-radius: 3px;

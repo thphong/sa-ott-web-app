@@ -488,7 +488,6 @@
 </main>
 
 <style>
-
   .chat-online {
     color: #34ce57;
   }

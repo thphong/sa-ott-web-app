@@ -2,23 +2,25 @@
   import { logInUserSession } from '$lib/service/login'
   import { isUserLoggedIn } from '$lib/service/login'
   import { goto } from '$app/navigation'
-  import Particles from "$lib/components/Particles.svelte"
+  import Particles from '$lib/components/Particles.svelte'
 
-  // if (isUserLoggedIn()) {
-  //   goto('/chat')
-  // }
+  if (isUserLoggedIn()) {
+    goto('/chat').then(() => {
+      window.location.reload()
+    })
+  }
 
   const login = () => {
     logInUserSession()
-    goto('/chat')
+    goto('/chat').then(() => {
+      window.location.reload()
+    })
   }
 
-  let phoneNumber = '';
-  let password = '';
+  let phoneNumber = ''
+  let password = ''
 
-  $: validationAccount = !!phoneNumber && !!password;
-
-
+  $: validationAccount = !!phoneNumber && !!password
 </script>
 
 <svelte:head>
@@ -42,7 +44,7 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="card-group mb-0">
         <div class="card p-4">
           <div class="card-body">
@@ -50,7 +52,12 @@
             <p class="text-muted">Sign In to your account</p>
             <div class="input-group mb-3">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" class="form-control" placeholder="Phone number" bind:value={phoneNumber} />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Phone number"
+                bind:value={phoneNumber}
+              />
             </div>
             <div class="input-group mb-4">
               <span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -100,6 +107,14 @@
 </div>
 
 <style>
+  :global(.sidebar) {
+    display: none;
+  }
+
+  :global(.home-section) {
+    left: 0px !important;
+  }
+
   .back-ground {
     position: fixed;
     top: 0px;
@@ -110,13 +125,13 @@
   }
 
   .container {
-    position: fixed;
     margin-top: 50px;
     margin-right: auto;
     margin-left: auto;
     padding-right: 15px;
     padding-left: 15px;
     width: 100%;
+    max-width: 100% !important;
   }
 
   @media (min-width: 576px) {
@@ -185,5 +200,4 @@
     border-left: none;
     background-color: transparent;
   }
-
 </style>

@@ -1,12 +1,15 @@
 <script lang="ts">
   import { isUserLoggedIn } from '$lib/service/login'
   import Particles from '$lib/components/Particles.svelte'
+  import { goto } from '$app/navigation'
   import OTP from '$lib/components/OTP.svelte'
 
   //TODO: unframe
-  // if (isUserLoggedIn()) {
-  //   goto('/chat')
-  // }
+  if (isUserLoggedIn()) {
+    goto('/chat').then(() => {
+        window.location.reload();
+    });
+  }
 
 </script>
 
@@ -24,7 +27,7 @@
 <div class="back-ground"><Particles></Particles></div>
 <div class="container">
   <div class="row">
-    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table">
+    <div class="col-sm-10 col-md-6 col-lg-5 mx-auto d-table">
       <div class="d-table-cell align-middle">
         <div class="text-center mt-4 text-white">
           <h1 class="h2">Register</h1>
@@ -37,6 +40,14 @@
 </div>
 
 <style>
+  :global(.sidebar) {
+    display: none;
+  }
+
+  :global(.home-section) {
+    left: 0px !important;
+  }
+
   .back-ground {
     position: fixed;
     top: 0px;
@@ -48,6 +59,6 @@
 
   .container {
     position: fixed;
+    max-width: 100% !important;
   }
-
 </style>

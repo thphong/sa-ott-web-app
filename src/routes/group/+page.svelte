@@ -515,11 +515,7 @@
 
 <style>
   .content__inner {
-    margin-top: 15px;
-    background-color: #fff;
-    margin-left: 15px;
-    padding-left: 20px;
-    padding-right: 30px;
+    padding: 20px;
     height: 100%;
   }
   .groups__item,

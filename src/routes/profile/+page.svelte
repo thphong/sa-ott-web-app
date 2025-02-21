@@ -418,13 +418,6 @@
 </div>
 
 <style>
-  :global(body) {
-    background-color: #f3f6f8 !important;
-  }
-
-  .main-container {
-    margin-left: 15px;
-  }
 
   .thumb-lg {
     height: 88px;

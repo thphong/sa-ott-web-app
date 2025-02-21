@@ -252,12 +252,7 @@
 </div>
 
 <style>
-    .main-container {
-        margin-left: 15px;
-        background-color: #fff;
-        width: 100%;
-        padding-right: 10px;
-    }
+    
     .dropdown-list-image {
         position: relative;
         height: 2.5rem;
