@@ -13,6 +13,11 @@
     goto('/chat')
   }
 
+  let phoneNumber = '';
+  let password = '';
+
+  $: validationAccount = !!phoneNumber && !!password;
+
 
 </script>
 
@@ -45,7 +50,7 @@
             <p class="text-muted">Sign In to your account</p>
             <div class="input-group mb-3">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" class="form-control" placeholder="Phone number" />
+              <input type="text" class="form-control" placeholder="Phone number" bind:value={phoneNumber} />
             </div>
             <div class="input-group mb-4">
               <span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -53,6 +58,7 @@
                 type="password"
                 class="form-control"
                 placeholder="Password"
+                bind:value={password}
               />
             </div>
             <div class="row">
@@ -60,12 +66,13 @@
                 <button
                   type="button"
                   class="btn btn-primary px-4"
+                  disabled={!validationAccount}
                   on:click={login}>Login</button
                 >
               </div>
               <div class="col-6 text-right">
-                <button type="button" class="btn btn-link px-0"
-                  >Forgot password?</button
+                <a href="/reset-password" class="btn btn-link px-0"
+                  >Forgot password?</a
                 >
               </div>
             </div>

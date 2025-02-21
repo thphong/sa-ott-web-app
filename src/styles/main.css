@@ -91,3 +91,8 @@ nav .sidebar {
   width: 1300px;
   display: flex;
 }
+
+button:disabled {
+  cursor:not-allowed !important;
+  pointer-events: none !important;
+}

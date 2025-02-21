@@ -7,11 +7,10 @@
   // if (isUserLoggedIn()) {
   //   goto('/chat')
   // }
-
 </script>
 
 <svelte:head>
-  <title>Sign Up</title>
+  <title>Reset password</title>
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css"
     rel="stylesheet"
@@ -27,10 +26,12 @@
     <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table">
       <div class="d-table-cell align-middle">
         <div class="text-center mt-4 text-white">
-          <h1 class="h2">Register</h1>
-          <p class="lead">Register now for secure and instant messaging!</p>
+          <h1 class="h2">Reset password</h1>
+          <p class="lead">
+            Reset your password securely to regain account access!
+          </p>
         </div>
-        <OTP showCheckbox={true}></OTP>
+        <OTP showCheckbox={false}></OTP>
       </div>
     </div>
   </div>
@@ -49,5 +50,4 @@
   .container {
     position: fixed;
   }
-
 </style>
