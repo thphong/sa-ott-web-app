@@ -4,9 +4,9 @@
   import { goto } from '$app/navigation'
   import Particles from "$lib/components/Particles.svelte"
 
-  if (isUserLoggedIn()) {
-    goto('/chat')
-  }
+  // if (isUserLoggedIn()) {
+  //   goto('/chat')
+  // }
 
   const login = () => {
     logInUserSession()
@@ -45,7 +45,7 @@
             <p class="text-muted">Sign In to your account</p>
             <div class="input-group mb-3">
               <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" class="form-control" placeholder="Username" />
+              <input type="text" class="form-control" placeholder="Phone number" />
             </div>
             <div class="input-group mb-4">
               <span class="input-group-addon"><i class="fa fa-lock"></i></span>
