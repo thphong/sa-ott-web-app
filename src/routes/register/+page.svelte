@@ -2,7 +2,7 @@
   import { logInUserSession } from '$lib/service/login'
   import { isUserLoggedIn } from '$lib/service/login'
   import { goto } from '$app/navigation'
-  import Particles from "$lib/components/Particles.svelte"
+  import Particles from '$lib/components/Particles.svelte'
 
   if (isUserLoggedIn()) {
     goto('/chat')
@@ -12,6 +12,8 @@
     logInUserSession()
     goto('/chat')
   }
+
+  let step = 1
 </script>
 
 <svelte:head>
@@ -40,43 +42,35 @@
             <div class="m-sm-4">
               <form>
                 <div class="form-group">
-                  <label>Name</label>
-                  <input
-                    class="form-control form-control-lg"
-                    type="text"
-                    name="name"
-                    placeholder="Enter your name"
-                  />
+                  <label for="phone">Enter your Phone</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">+84</span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control form-control-lg"
+                      placeholder="Phone number"
+                    />
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label>Email</label>
+
+                <div class="form-check">
                   <input
-                    class="form-control form-control-lg"
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
+                    class="form-check-input checkbox-lg"
+                    type="checkbox"
+                    id="defaultCheck1"
                   />
-                </div>
-                <div class="form-group">
-                  <label>Phone</label>
-                  <input
-                    class="form-control form-control-lg"
-                    type="text"
-                    name="phong"
-                    placeholder="Enter your phone"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input
-                    class="form-control form-control-lg"
-                    type="password"
-                    name="password"
-                    placeholder="Enter password"
-                  />
+                  <label class="form-check-label" for="defaultCheck1">
+                    &nbsp; I agree to the  <a href="https://google.com" target="_blank">terms of use of Vchat</a>
+                  </label>
                 </div>
                 <div class="text-center mt-3">
-                  <button type="button" class="btn btn-lg btn-primary" on:click={register}>Sign up</button>
+                  <button
+                    type="button"
+                    class="btn btn-lg btn-primary"
+                    on:click={register}>Continue</button
+                  >
                 </div>
               </form>
             </div>
@@ -123,5 +117,10 @@
   input,
   button {
     font-size: 16px !important;
+  }
+
+  .checkbox-lg {
+    transform: scale(1.5); /* Phóng to checkbox */
+    margin-left: -15px;
   }
 </style>
