@@ -8,7 +8,8 @@
     signInWithPhoneNumber,
     RecaptchaVerifier
   } from 'firebase/auth'
-  import { validatePhoneNumber } from '$lib/utils/validation'
+  import { validatePhoneNumber, isValidPassword } from '$lib/utils/validation'
+  import { MESSAGE } from '$lib/constants/message'
 
   export let showCheckbox = true
 
@@ -78,14 +79,16 @@
   const login = () => {
     logInUserSession()
     goto('/chat').then(() => {
-        window.location.reload();
-    });
+      window.location.reload()
+    })
   }
 
-  $: validationStep1 = (!showCheckbox || checkedAgreement) && validatePhoneNumber(phoneNumber)
+  $: phoneValid = validatePhoneNumber(phoneNumber)
+  $: validationStep1 = (!showCheckbox || checkedAgreement) && phoneValid
   $: validationStep2 = !!opt1 && !!opt2 && !!opt3 && !!opt4 && !!opt5 && !!opt6
+  $: passwordValid = isValidPassword(password)
   $: validationStep3 =
-    !!password && !!passwordRepeat && password == passwordRepeat
+    !!password && passwordValid && password == passwordRepeat
   $: opt = opt1 + opt2 + opt3 + opt4 + opt5 + opt6
 </script>
 
@@ -102,10 +105,12 @@
               </div>
               <input
                 type="text"
-                class="form-control form-control-lg"
+                class="form-control form-control-lg is-invalid"
                 placeholder="Phone number"
                 bind:value={phoneNumber}
+                class:is-invalid={!!phoneNumber && !phoneValid}
               />
+              <div class="invalid-feedback">{MESSAGE.ERROR_PHONE_INVALID}</div>
             </div>
           </div>
           {#if showCheckbox}
@@ -193,7 +198,9 @@
                 class="form-control form-control-lg"
                 placeholder="Phone number"
                 bind:value={password}
+                class:is-invalid={!!password && !passwordValid}
               />
+              <div class="invalid-feedback">{MESSAGE.ERROR_PASSWORD_INVALID}</div>
             </div>
           </div>
           <div class="form-group">
@@ -204,7 +211,9 @@
                 class="form-control form-control-lg"
                 placeholder="Phone number"
                 bind:value={passwordRepeat}
+                class:is-invalid={!!passwordRepeat && passwordRepeat != password}
               />
+              <div class="invalid-feedback">{MESSAGE.ERROR_PASSWORD_NOT_SAME}</div>
             </div>
           </div>
           <div class="text-center mt-3">
