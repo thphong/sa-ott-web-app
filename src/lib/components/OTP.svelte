@@ -77,7 +77,9 @@
 
   const login = () => {
     logInUserSession()
-    goto('/chat')
+    goto('/chat').then(() => {
+        window.location.reload();
+    });
   }
 
   $: validationStep1 = (!showCheckbox || checkedAgreement) && validatePhoneNumber(phoneNumber)
