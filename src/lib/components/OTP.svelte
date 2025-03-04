@@ -27,6 +27,8 @@
 
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  auth.useDeviceLanguage() // Auto-detect user language
+  let recaptchaVerifier: RecaptchaVerifier
 
   let phoneNumber = ''
   let checkedAgreement = false
@@ -37,34 +39,34 @@
     opt4 = '',
     opt5 = '',
     opt6 = ''
+  $: otp = opt1 + opt2 + opt3 + opt4 + opt5 + opt6;
   let password = ''
   let passwordRepeat = ''
 
   onMount(() => {
+    recaptchaVerifier = new RecaptchaVerifier(auth, 'recapchar-container', {
+      size: 'invisible',
+      callback: () => console.log('reCAPTCHA solved!')
+    })
+    console.log('recaptchaVerifier', recaptchaVerifier);
   })
 
   const sendOTP = async () => {
     try {
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
 
-      console.log(window.recaptchaVerifier)
+      let markedNumber = phoneNumber;
+      if(markedNumber.startsWith('0')) {
+        markedNumber = markedNumber.substring(1);
+      }
+      markedNumber = '+84' + markedNumber;
 
       confirmationResult = await signInWithPhoneNumber(
         auth,
-        phoneNumber,
-        window.recaptchaVerifier
+        markedNumber,
+        recaptchaVerifier
       )
 
-      // signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
-      //   .then((confirmation) => {
-      //     // SMS sent. Prompt user to type the code from the message, then sign the
-      //     // user in with confirmationResult.confirm(code).
-      //     alert('Ok! signInWithPhoneNumber')
-      //     confirmationResult = confirmation
-      //   })
-      //   .catch((error) => {
-      //     alert('Error! signInWithPhoneNumber')
-      //   })
+      console.log('confirmationResult', confirmationResult);
 
       step = 2
     } catch (error) {
@@ -75,7 +77,7 @@
   const verifyOTP = async () => {
     try {
       const result = await confirmationResult.confirm(otp)
-      alert('Phone Verified! User: ' + result.user.phoneNumber)
+      console.log('Phone Verified! User: ' + result.user.phoneNumber)
       step = 3
     } catch (error) {
       console.error('Error verifying OTP:', error)
@@ -94,7 +96,6 @@
   $: validationStep2 = !!opt1 && !!opt2 && !!opt3 && !!opt4 && !!opt5 && !!opt6
   $: passwordValid = isValidPassword(password)
   $: validationStep3 = !!password && passwordValid && password == passwordRepeat
-  $: opt = opt1 + opt2 + opt3 + opt4 + opt5 + opt6
 </script>
 
 <div class="card">
@@ -239,7 +240,7 @@
     </div>
   </div>
 </div>
-<div id="recaptcha-container"></div>
+<div id="recapchar-container"></div>
 
 <style>
   .card {
