@@ -15,18 +15,18 @@
 
   let step = 1
 
-  const firebaseConfig: any = {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'your-project.firebaseapp.com',
-    projectId: 'your-project',
-    storageBucket: 'your-project.appspot.com',
-    messagingSenderId: '123456789',
-    appId: '1:123456789:web:abcdef'
+  const firebaseConfig = {
+    apiKey: 'AIzaSyBhIUjQ3NmCELBz3K27mRTiR_TIZAnp34w',
+    authDomain: 'zalo-simulator.firebaseapp.com',
+    projectId: 'zalo-simulator',
+    storageBucket: 'zalo-simulator.firebasestorage.app',
+    messagingSenderId: '529425094133',
+    appId: '1:529425094133:web:295b7ee3cb89093383bcbc',
+    measurementId: 'G-HSNRWPF2JJ'
   }
 
-  //TODO: unframe
-  //const app = initializeApp(firebaseConfig)
-  //const auth = getAuth(app)
+  const app = initializeApp(firebaseConfig)
+  const auth = getAuth(app)
 
   let phoneNumber = ''
   let checkedAgreement = false
@@ -41,24 +41,31 @@
   let passwordRepeat = ''
 
   onMount(() => {
-    //TODO: unframe
-    // window.recaptchaVerifier = new RecaptchaVerifier(
-    //   auth,
-    //   'recaptcha-container',
-    //   {
-    //     size: 'invisible'
-    //   }
-    // )
   })
 
   const sendOTP = async () => {
     try {
-      //TODO: unframe
-      // confirmationResult = await signInWithPhoneNumber(
-      //   auth,
-      //   phoneNumber,
-      //   window.recaptchaVerifier
-      // )
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+
+      console.log(window.recaptchaVerifier)
+
+      confirmationResult = await signInWithPhoneNumber(
+        auth,
+        phoneNumber,
+        window.recaptchaVerifier
+      )
+
+      // signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+      //   .then((confirmation) => {
+      //     // SMS sent. Prompt user to type the code from the message, then sign the
+      //     // user in with confirmationResult.confirm(code).
+      //     alert('Ok! signInWithPhoneNumber')
+      //     confirmationResult = confirmation
+      //   })
+      //   .catch((error) => {
+      //     alert('Error! signInWithPhoneNumber')
+      //   })
+
       step = 2
     } catch (error) {
       console.error('Error sending OTP:', error)
@@ -67,9 +74,8 @@
 
   const verifyOTP = async () => {
     try {
-      //TODO: unframe
-      //const result = await confirmationResult.confirm(otp)
-      //alert('Phone Verified! User: ' + result.user.phoneNumber)
+      const result = await confirmationResult.confirm(otp)
+      alert('Phone Verified! User: ' + result.user.phoneNumber)
       step = 3
     } catch (error) {
       console.error('Error verifying OTP:', error)
@@ -87,8 +93,7 @@
   $: validationStep1 = (!showCheckbox || checkedAgreement) && phoneValid
   $: validationStep2 = !!opt1 && !!opt2 && !!opt3 && !!opt4 && !!opt5 && !!opt6
   $: passwordValid = isValidPassword(password)
-  $: validationStep3 =
-    !!password && passwordValid && password == passwordRepeat
+  $: validationStep3 = !!password && passwordValid && password == passwordRepeat
   $: opt = opt1 + opt2 + opt3 + opt4 + opt5 + opt6
 </script>
 
@@ -200,7 +205,9 @@
                 bind:value={password}
                 class:is-invalid={!!password && !passwordValid}
               />
-              <div class="invalid-feedback">{MESSAGE.ERROR_PASSWORD_INVALID}</div>
+              <div class="invalid-feedback">
+                {MESSAGE.ERROR_PASSWORD_INVALID}
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -211,9 +218,12 @@
                 class="form-control form-control-lg"
                 placeholder="Phone number"
                 bind:value={passwordRepeat}
-                class:is-invalid={!!passwordRepeat && passwordRepeat != password}
+                class:is-invalid={!!passwordRepeat &&
+                  passwordRepeat != password}
               />
-              <div class="invalid-feedback">{MESSAGE.ERROR_PASSWORD_NOT_SAME}</div>
+              <div class="invalid-feedback">
+                {MESSAGE.ERROR_PASSWORD_NOT_SAME}
+              </div>
             </div>
           </div>
           <div class="text-center mt-3">
@@ -229,6 +239,7 @@
     </div>
   </div>
 </div>
+<div id="recaptcha-container"></div>
 
 <style>
   .card {
