@@ -24,7 +24,7 @@
 </svelte:head>
 
 <div class="back-ground"><Particles></Particles></div>
-<div class="container">
+<div id="reset-password-container" class="container">
   <div class="row">
     <div class="col-sm-10 col-md-6 col-lg-5 mx-auto d-table">
       <div class="d-table-cell align-middle">

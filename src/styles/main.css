@@ -4,7 +4,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  #login-container, #register-container, #reset-password-container {
     font-family: 'Poppins', sans-serif;
+  }
+
+  #chat-container {
+    font-family: SegoeuiPc, Segoe UI, San Francisco, Helvetica Neue, Helvetica, Lucida Grande, Roboto, Ubuntu, Tahoma, Microsoft Sans Serif, Arial, sans-serif;
   }
 
   .sidebar {
