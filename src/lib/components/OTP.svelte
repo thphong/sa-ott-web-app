@@ -10,6 +10,7 @@
   } from 'firebase/auth'
   import { validatePhoneNumber, isValidPassword } from '$lib/utils/validation'
   import { MESSAGE } from '$lib/constants/message'
+  import { loader } from '$lib/components/loader/loader'
 
   export let showCheckbox = true
 
@@ -39,7 +40,13 @@
     opt4 = '',
     opt5 = '',
     opt6 = ''
-  $: otp = opt1 + opt2 + opt3 + opt4 + opt5 + opt6;
+  let inputOTP1: any,
+    inputOTP2: any,
+    inputOTP3: any,
+    inputOTP4: any,
+    inputOTP5: any,
+    inputOTP6: any
+  $: otp = opt1 + opt2 + opt3 + opt4 + opt5 + opt6
   let password = ''
   let passwordRepeat = ''
 
@@ -52,12 +59,14 @@
 
   const sendOTP = async () => {
     try {
-      phoneOTPValid = true;
-      let markedNumber = phoneNumber;
-      if(markedNumber.startsWith('0')) {
-        markedNumber = markedNumber.substring(1);
+      phoneOTPValid = true
+      let markedNumber = phoneNumber
+      if (markedNumber.startsWith('0')) {
+        markedNumber = markedNumber.substring(1)
       }
-      markedNumber = '+84' + markedNumber;
+      markedNumber = '+84' + markedNumber
+
+      loader.showLoader()
 
       confirmationResult = await signInWithPhoneNumber(
         auth,
@@ -67,17 +76,22 @@
 
       step = 2
     } catch (error) {
-      phoneOTPValid = false;
+      phoneOTPValid = false
       //console.error('Error sending OTP:', error)
+    } finally {
+      loader.hideLoader()
     }
   }
 
   const verifyOTP = async () => {
     try {
+      loader.showLoader()
       const result = await confirmationResult.confirm(otp)
       step = 3
     } catch (error) {
       console.error('Error verifying OTP:', error)
+    } finally {
+      loader.hideLoader()
     }
   }
 
@@ -94,6 +108,41 @@
   $: validationStep2 = !!opt1 && !!opt2 && !!opt3 && !!opt4 && !!opt5 && !!opt6
   $: passwordValid = isValidPassword(password)
   $: validationStep3 = !!password && passwordValid && password == passwordRepeat
+
+  const handleKeyUp = (input: number) => {
+    switch (input) {
+      case 1:
+        if (opt1) {
+          inputOTP2.focus()
+        }
+        break
+      case 2:
+        if (opt2) {
+          inputOTP3.focus()
+        }
+        break
+      case 3:
+        if (opt3) {
+          inputOTP4.focus()
+        }
+        break
+      case 4:
+        if (opt4) {
+          inputOTP5.focus()
+        }
+        break
+      case 5:
+        if (opt5) {
+          inputOTP6.focus()
+        }
+        break
+      case 6:
+        if(validationStep2) {
+          verifyOTP();
+        }
+        break
+    }
+  }
 </script>
 
 <div class="card">
@@ -112,7 +161,8 @@
                 class="form-control form-control-lg is-invalid"
                 placeholder="Phone number"
                 bind:value={phoneNumber}
-                class:is-invalid={!!phoneNumber && (!phoneValid || !phoneOTPValid )}
+                class:is-invalid={!!phoneNumber &&
+                  (!phoneValid || !phoneOTPValid)}
               />
               <div class="invalid-feedback">{MESSAGE.ERROR_PHONE_INVALID}</div>
             </div>
@@ -151,36 +201,60 @@
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt1}
+                bind:this={inputOTP1}
+                on:keyup={() => {
+                  handleKeyUp(1)
+                }}
               />
               <input
                 type="text"
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt2}
+                bind:this={inputOTP2}
+                on:keyup={() => {
+                  handleKeyUp(2)
+                }}
               />
               <input
                 type="text"
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt3}
+                bind:this={inputOTP3}
+                on:keyup={() => {
+                  handleKeyUp(3)
+                }}
               />
               <input
                 type="text"
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt4}
+                bind:this={inputOTP4}
+                on:keyup={() => {
+                  handleKeyUp(4)
+                }}
               />
               <input
                 type="text"
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt5}
+                bind:this={inputOTP5}
+                on:keyup={() => {
+                  handleKeyUp(5)
+                }}
               />
               <input
                 type="text"
                 class="otp-input form-control text-center mx-1"
                 maxlength="1"
                 bind:value={opt6}
+                bind:this={inputOTP6}
+                on:keyup={() => {
+                  handleKeyUp(6)
+                }}
               />
             </div>
           </div>

@@ -4,7 +4,8 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
-  import { pageHomeClass } from '$lib/service/store';
+  import { pageHomeClass } from '$lib/service/store';  
+  import Loader from "$lib/components/loader/Loader.svelte";
 
   if (
     !isUserLoggedIn() &&
@@ -40,6 +41,7 @@
   })
 </script>
 
+<Loader/>
 <div class="sidebar">
   <div class="logo-details">
     <i class="bx bxl-c-plus-plus icon"></i>
