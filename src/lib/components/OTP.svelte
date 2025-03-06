@@ -48,12 +48,11 @@
       size: 'invisible',
       callback: () => console.log('reCAPTCHA solved!')
     })
-    console.log('recaptchaVerifier', recaptchaVerifier);
   })
 
   const sendOTP = async () => {
     try {
-
+      phoneOTPValid = true;
       let markedNumber = phoneNumber;
       if(markedNumber.startsWith('0')) {
         markedNumber = markedNumber.substring(1);
@@ -66,18 +65,16 @@
         recaptchaVerifier
       )
 
-      console.log('confirmationResult', confirmationResult);
-
       step = 2
     } catch (error) {
-      console.error('Error sending OTP:', error)
+      phoneOTPValid = false;
+      //console.error('Error sending OTP:', error)
     }
   }
 
   const verifyOTP = async () => {
     try {
       const result = await confirmationResult.confirm(otp)
-      console.log('Phone Verified! User: ' + result.user.phoneNumber)
       step = 3
     } catch (error) {
       console.error('Error verifying OTP:', error)
@@ -92,6 +89,7 @@
   }
 
   $: phoneValid = validatePhoneNumber(phoneNumber)
+  let phoneOTPValid = true
   $: validationStep1 = (!showCheckbox || checkedAgreement) && phoneValid
   $: validationStep2 = !!opt1 && !!opt2 && !!opt3 && !!opt4 && !!opt5 && !!opt6
   $: passwordValid = isValidPassword(password)
@@ -114,7 +112,7 @@
                 class="form-control form-control-lg is-invalid"
                 placeholder="Phone number"
                 bind:value={phoneNumber}
-                class:is-invalid={!!phoneNumber && !phoneValid}
+                class:is-invalid={!!phoneNumber && (!phoneValid || !phoneOTPValid )}
               />
               <div class="invalid-feedback">{MESSAGE.ERROR_PHONE_INVALID}</div>
             </div>

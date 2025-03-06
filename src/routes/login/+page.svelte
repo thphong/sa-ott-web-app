@@ -3,6 +3,9 @@
   import { isUserLoggedIn } from '$lib/service/login'
   import { goto } from '$app/navigation'
   import Particles from '$lib/components/Particles.svelte'
+  import { pageHomeClass } from '$lib/service/store';
+
+  pageHomeClass.set("disable-menu");
 
   if (isUserLoggedIn()) {
     goto('/chat').then(() => {
@@ -107,14 +110,6 @@
 </div>
 
 <style>
-  :global(.sidebar) {
-    display: none;
-  }
-
-  :global(.home-section) {
-    left: 0px !important;
-  }
-
   .back-ground {
     position: fixed;
     top: 0px;

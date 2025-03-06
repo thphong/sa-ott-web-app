@@ -4,6 +4,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
+  import { pageHomeClass } from '$lib/service/store';
 
   if (
     !isUserLoggedIn() &&
@@ -96,7 +97,7 @@
     </li>
   </ul>
 </div>
-<section class="home-section">
+<section class="home-section {$pageHomeClass}">
   <slot />
 </section>
 

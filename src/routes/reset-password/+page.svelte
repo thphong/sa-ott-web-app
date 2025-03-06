@@ -3,6 +3,9 @@
   import Particles from '$lib/components/Particles.svelte'
   import { goto } from '$app/navigation'
   import OTP from '$lib/components/OTP.svelte'
+  import { pageHomeClass } from '$lib/service/store';
+
+  pageHomeClass.set("disable-menu");
 
   //TODO: unframe
   if (isUserLoggedIn()) {
@@ -41,13 +44,6 @@
 </div>
 
 <style>
-  :global(.sidebar) {
-    display: none;
-  }
-
-  :global(.home-section) {
-    left: 0px !important;
-  }
 
   .back-ground {
     position: fixed;
